@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chat {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .from {
+            font-weight: bold;
+            color: #3498db;
+        }
+        .to {
+            color: #8e44ad;
+        }
+        .created_at {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .msg {
+            margin: 5px 0;
+        }
+        .button1 {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            color: aliceblue;
+            background-color: rgb(185, 47, 47);
+        }
+        .edit-button, .delete-button {
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            border: none;
+        }
+        .edit-button {
+            background-color: #2ecc71;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <form style="text-align: center; padding: 10px 0;" method="get" action="/chats/new">
+        <button class="button1">New Chat</button>
+    </form>
+
+    <div class="chat">
+        <% for(chat of chats) { %>
+            <div class="message">
+                <p class="from">From: <%= chat.from %></p>
+                <p class="to">To: <%= chat.to %></p>
+                <p class="msg"><%= chat.msg %></p>
+                <p class="created_at">Sent: <%= chat.created_at.toLocaleString() %></p>
+                
+                <!-- Edit and Delete buttons -->
+                <form method="post" action="/chats/<%= chat.id %>?_method=PATCH" style="display: inline;">
+                    <button class="edit-button">Edit</button>
+                </form>
+                <form method="post" action="/chats/<%= chat.id %>?_method=DELETE" style="display: inline;">
+                    <button class="delete-button">Delete</button>
+                </form>
+            </div>
+        <% }; %>
+    </div>
+
+</body>
+</html>
