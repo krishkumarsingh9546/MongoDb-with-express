@@ -60,7 +60,7 @@
 </head>
 <body>
 
-    <form style="text-align: center; padding: 10px 0;" method="get" action="/chats/new">
+    <form style="text-align: center; padding: 10px 0;" method="get" action="/new">
         <button class="button1">New Chat</button>
     </form>
 
@@ -73,10 +73,10 @@
                 <p class="created_at">Sent: <%= chat.created_at.toLocaleString() %></p>
                 
                 <!-- Edit and Delete buttons -->
-                <form method="post" action="/chats/<%= chat.id %>?_method=PATCH" style="display: inline;">
+                <form method="post" action="/<%= chat.id %>?_method=PATCH" style="display: inline;">
                     <button class="edit-button">Edit</button>
                 </form>
-                <form method="post" action="/chats/<%= chat.id %>?_method=DELETE" style="display: inline;">
+                <form method="post" action="/<%= chat.id %>?_method=DELETE" style="display: inline;">
                     <button class="delete-button">Delete</button>
                 </form>
             </div>

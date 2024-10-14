@@ -27,48 +27,45 @@ app.listen(port , ()=>{
     console.log(`server is listening : ${port}`);
 })
 
-app.get("/" , (req , res)=>{
-    res.send("kya hal hai");
-})
 
-app.get("/chats", async(req, res) => {
+app.get("/", async(req, res) => {
      let chats = await Chat.find({});
      res.render("index.ejs", {chats})
 })
 
 
 
-app.get("/chats/new", (req, res) => {
+app.get("/new", (req, res) => {
     res.render("addNewChat.ejs");
 })
 
 
-app.post("/chats", async(req, res) => {
+app.post("/", async(req, res) => {
     let {from , to , msg ,  created_at} = await req.body;
     Chat.insertMany({from: `${from}`, to: `${to}`, msg: `${msg}`, created_at: `${created_at}`});
-    res.redirect("/chats");
+    res.redirect("/");
 })
 
-app.patch("/chats/:id", async(req, res) => {
+app.patch("/:id", async(req, res) => {
     let Id = req.params.id;
     let chat = await Chat.findById(Id)
     res.render("editChatMsg.ejs", {chat});
 })
 
 
-app.put("/chats/:id", async(req, res) => {
+app.put("/:id", async(req, res) => {
     let {id} = req.params;
     let {msg} = req.body;
     
      await Chat.findByIdAndUpdate({_id: id} , {msg:`${msg}`});
-    res.redirect("/chats");
+    res.redirect("/");
 })  
 
 
-app.delete("/chats/:id", async(req, res) => {
+app.delete("/:id", async(req, res) => {
     let {id} = req.params;
      await Chat.findByIdAndDelete(id);
-     res.redirect("/chats");
+     res.redirect("/");
 })
 
 
